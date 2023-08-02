@@ -12,7 +12,7 @@
 ### Sᴀᴍᴩʟᴇ Bᴏᴛ (Official EdGE Rename Bot)
 
 <p align="center">
-🤖 <a href="https://t.me/EDGE_RenameBot"><img title="Telegram" src="https://img.shields.io/static/v1?label=PYRO+RENAME&message=BOT&color=blue-green"></a> 🤖
+🤖 <a href="https://t.me/EDGE_RenameBot"><img title="Telegram" src="https://img.shields.io/static/v1?label=EDGE+RENAME&message=BOT&color=blue-green"></a> 🤖
 </p>
 
 
