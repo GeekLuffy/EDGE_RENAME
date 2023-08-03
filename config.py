@@ -52,11 +52,11 @@ class Txt(object):
 ᴛʜɪꜱ ɪꜱ ᴀɴ ᴀᴅᴠᴀɴᴄᴇᴅ ʀᴇɴᴀᴍᴇ ʙᴏᴛ
 ᴜꜱɪɴɢ ᴛʜɪꜱ ʙᴏᴛ ʏᴏᴜ ᴄᴀɴ ʀᴇɴᴀᴍᴇ ᴀɴᴅ ꜱᴇᴛ ᴄᴜꜱᴛᴏᴍ ᴛʜᴜᴍʙɴᴀɪʟ ꜰᴏʀ ʏᴏᴜʀ ꜰɪʟᴇ
 ᴛʜɪꜱ ʙᴏᴛ ᴀʟꜱᴏ ꜱᴜᴘᴘᴏʀᴛ ᴄᴜꜱᴛᴏᴍ ᴄᴀᴘᴛɪᴏɴ
-​ᴛʜɪꜱ ʙᴏᴛ ᴡᴀꜱ ᴄʀᴇᴀᴛᴇᴅ ʙʏ : @ᴍᴏɴᴋᴇʏ_ᴅ_ʟᴜᴜꜰʏ ⚡️</b>"""
+​ᴛʜɪꜱ ʙᴏᴛ ᴡᴀꜱ ᴄʀᴇᴀᴛᴇᴅ ʙʏ : <a href=https://t.me/MONKEY_D_LUUFY>ʟᴜꜰꜰʏ</a> ⚡️</b>"""
 
     ABOUT_TXT = """<b>╭───────────⍟
 ├➽ ᴍy ɴᴀᴍᴇ : {}
-├➽ Dᴇᴠᴇʟᴏᴩᴇʀ : <a href=https://t.me/Monkey_d_luufy>LUFFY</a> 
+├➽ Dᴇᴠᴇʟᴏᴩᴇʀ : <a href=https://t.me/Monkey_d_luufy>Lᴜꜰꜰʏ</a> 
 ├➽ Lɪʙʀᴀʀy : <a href=https://github.com/pyrogram>Pyʀᴏɢʀᴀᴍ</a>
 ├➽ Lᴀɴɢᴜᴀɢᴇ: <a href=https://www.python.org>Pyᴛʜᴏɴ 3</a>
 ├➽ Dᴀᴛᴀ Bᴀꜱᴇ: <a href=https://cloud.mongodb.com>Mᴏɴɢᴏ DB</a>    
@@ -81,11 +81,13 @@ Exᴀᴍᴩʟᴇ:- /set_caption 📕 Fɪʟᴇ Nᴀᴍᴇ: {filename}
 """
 
 #⚠️ Dᴏɴ'ᴛ Rᴇᴍᴏᴠᴇ Oᴜʀ Cʀᴇᴅɪᴛꜱ @MONKEY_D_LUUFY🙏🥲
-    DEV_TXT = """<b><u>Sᴩᴇᴄɪᴀʟ Tʜᴀɴᴋꜱ TO Dᴇᴠᴇʟᴏᴩᴇʀ</b></u>/n
-» SOURCE CODE  : <a href=https://github.com/GeekLuffy/EDGE-RENAME-BOT>𝐄𝐃𝐆𝐄 𝐑𝐄𝐍𝐀𝐌𝐄 𝐁𝐎𝐓</a>
-» MAIN CHANNEL : <a href=https://t.me/Anime_Edge>𝐀𝐍𝐈𝐌𝐄 𝐄𝐃𝐆𝐄</a>
-» MAIN GROUP   : <a href=https://t.me/straw_hat_piratess>𝐒𝐓𝐑𝐀𝐖𝐇𝐀𝐓 𝐏𝐈𝐑𝐀𝐓𝐄𝐒</a>
-• ❣️ <a href=https://t.me/Monkey_d_luufy>𝐌𝐎𝐍𝐊𝐄𝐘 𝐃 𝐋𝐔𝐅𝐅𝐘</a>"""
+    DEV_TXT = """<b><u>Sᴩᴇᴄɪᴀʟ Tʜᴀɴᴋꜱ TO Dᴇᴠᴇʟᴏᴩᴇʀ</b></u>\n
+» ᴏᴡɴᴇʀ : <a href=https://t.me/Monkey_d_luufy>ʟᴜꜰꜰʏ</a>
+» ɢɪᴛʜᴜʙ :  <a href=https://github.com/GeekLuffy/>ʟᴜꜰꜰʏ</a>
+» ꜱᴏᴜʀᴄᴇ ᴄᴏᴅᴇ : <a href=https://github.com/GeekLuffy/EDGE-RENAME-BOT>ᴇᴅɢᴇ ʀᴇɴᴀᴍᴇ ʙᴏᴛ</a>
+» ᴍᴀɪɴ ᴄʜᴀɴɴᴇʟ : <a href=https://t.me/Anime_Edge>ᴀɴɪᴍᴇ ᴇᴅɢᴇ</a>
+» ᴍᴀɪɴ ɢʀᴏᴜᴘ : <a href=https://t.me/straw_hat_piratess>ꜱᴛʀᴀᴡʜᴀᴛ ᴘɪʀᴀᴛᴇꜱ</a>"""
+
 
     PROGRESS_BAR = """<b>\n
 ╭━━━━❰ᴘʀᴏɢʀᴇss ʙᴀʀ❱━➣
