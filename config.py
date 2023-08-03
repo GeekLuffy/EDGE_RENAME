@@ -82,9 +82,9 @@ Exᴀᴍᴩʟᴇ:- /set_caption 📕 Fɪʟᴇ Nᴀᴍᴇ: {filename}
 
 #⚠️ Dᴏɴ'ᴛ Rᴇᴍᴏᴠᴇ Oᴜʀ Cʀᴇᴅɪᴛꜱ @MONKEY_D_LUUFY🙏🥲
     DEV_TXT = """<b><u>Sᴩᴇᴄɪᴀʟ Tʜᴀɴᴋꜱ Tᴏ Dᴇᴠᴇʟᴏᴩᴇʀ</b></u>\n
-<b>»ᴏᴡɴᴇʀ : <a href=https://t.me/Monkey_d_luufy>ʟᴜꜰꜰʏ</a>
+<b>» ᴏᴡɴᴇʀ : <a href=https://t.me/Monkey_d_luufy>ʟᴜꜰꜰʏ</a>
 » ɢɪᴛʜᴜʙ :  <a href=https://github.com/GeekLuffy/>ʟᴜꜰꜰʏ</a>
-» ꜱᴏᴜʀᴄᴇ ᴄᴏᴅᴇ : <a href=https://github.com/GeekLuffy/EDGE_RENAME_BOT>ᴇᴅɢᴇ ʀᴇɴᴀᴍᴇ ʙᴏᴛ</a>
+» ꜱᴏᴜʀᴄᴇ ᴄᴏᴅᴇ : <a href=https://t.me/Monkey_d_luufy>ᴇᴅɢᴇ ʀᴇɴᴀᴍᴇ ʙᴏᴛ</a>
 » ᴍᴀɪɴ ᴄʜᴀɴɴᴇʟ : <a href=https://t.me/Anime_Edge>ᴀɴɪᴍᴇ ᴇᴅɢᴇ</a>
 » ᴍᴀɪɴ ɢʀᴏᴜᴘ : <a href=https://t.me/straw_hat_piratess>ꜱᴛʀᴀᴡʜᴀᴛ ᴘɪʀᴀᴛᴇꜱ</a></b>"""
 
