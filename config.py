@@ -38,7 +38,8 @@ class Config(object):
     BOT_UPTIME  = time.time()
     START_PIC   = os.environ.get("START_PIC", "")
     ADMIN       = [int(admin) if id_pattern.search(admin) else admin for admin in os.environ.get('ADMIN', '').split()]
-    FORCE_SUB   = os.environ.get("FORCE_SUB", "") 
+    FORCE_SUB_1 = os.environ.get("FORCE_SUB_1", "Straw_hat_piratess")
+    FORCE_SUB_2 = os.environ.get("FORCE_SUB_2", "Edge_Bot_Updates")
     LOG_CHANNEL = int(os.environ.get("LOG_CHANNEL", None))
 
     # wes response configuration     
