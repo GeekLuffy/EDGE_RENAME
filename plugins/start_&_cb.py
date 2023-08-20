@@ -36,7 +36,7 @@ async def start(client, message):
     button = InlineKeyboardMarkup([[
         InlineKeyboardButton("⚡️ 𝗢ᴡɴᴇʀ", callback_data='dev')
         ],[
-        InlineKeyboardButton('Uᴩᴅᴀᴛᴇꜱ', url='https://t.me/Anime_Edge'),
+        InlineKeyboardButton('Uᴩᴅᴀᴛᴇꜱ', url='https://t.me/Edge_Bot_Updates'),
         InlineKeyboardButton('Sᴜᴩᴩᴏʀᴛ', url='https://t.me/Straw_hat_piratess')
         ],[
         InlineKeyboardButton('Aʙᴏᴜᴛ', callback_data='about'),
@@ -58,7 +58,7 @@ async def cb_handler(client, query: CallbackQuery):
             reply_markup = InlineKeyboardMarkup([[
                 InlineKeyboardButton("⚡ 𝗢ᴡɴᴇʀ", callback_data='dev')
                 ],[
-                InlineKeyboardButton('Uᴩᴅᴀᴛᴇꜱ', url='https://t.me/Anime_Edge'),
+                InlineKeyboardButton('Uᴩᴅᴀᴛᴇꜱ', url='https://t.me/Edge_Bot_Updates'),
                 InlineKeyboardButton('Sᴜᴩᴩᴏʀᴛ', url='https://t.me/Straw_hat_piratess')
                 ],[
                 InlineKeyboardButton('Aʙᴏᴜᴛ', callback_data='about'),
