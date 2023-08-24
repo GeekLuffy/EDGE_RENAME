@@ -26,19 +26,19 @@ id_pattern = re.compile(r'^.\d+$')
 
 class Config(object):
     # pyro client config
-    API_ID    = os.environ.get("API_ID", "")
-    API_HASH  = os.environ.get("API_HASH", "")
-    BOT_TOKEN = os.environ.get("BOT_TOKEN", "") 
+    API_ID    = os.environ.get("API_ID", 7414019)
+    API_HASH  = os.environ.get("API_HASH", "d463ed3d695f5cd4164029405ad8388e")
+    BOT_TOKEN = os.environ.get("BOT_TOKEN", "6585676928:AAGeRhdLUhJnCeGslsMNyup4LeVglurhetY") 
    
     # database config
     DB_NAME = os.environ.get("DB_NAME","pyro-botz")     
-    DB_URL  = os.environ.get("DB_URL","")
+    DB_URL  = os.environ.get("DB_URL","mongodb+srv://owais:owais2006@renamebot.phiebzw.mongodb.net/?retryWrites=true&w=majority")
  
     # other configs
     BOT_UPTIME  = time.time()
-    START_PIC   = os.environ.get("START_PIC", "")
-    ADMIN       = [int(admin) if id_pattern.search(admin) else admin for admin in os.environ.get('ADMIN', '').split()]
-    FORCE_SUB_1 = os.environ.get("FORCE_SUB_1", "Straw_hat_piratess")
+    START_PIC   = os.environ.get("START_PIC", "https://te.legra.ph/file/2a534b25a88d4c2e2b108.jpg")
+    ADMIN       = [int(admin) if id_pattern.search(admin) else admin for admin in os.environ.get('ADMIN', '1350488685').split()]
+    FORCE_SUB_1 = os.environ.get("FORCE_SUB_1", "EdgeBotSupport")
     FORCE_SUB_2 = os.environ.get("FORCE_SUB_2", "Edge_Bot_Updates")
     LOG_CHANNEL = int(os.environ.get("LOG_CHANNEL", None))
 
@@ -87,7 +87,7 @@ Exᴀᴍᴩʟᴇ:- /set_caption 📕 Fɪʟᴇ Nᴀᴍᴇ: {filename}
 
 #⚠️ Dᴏɴ'ᴛ Rᴇᴍᴏᴠᴇ Oᴜʀ Cʀᴇᴅɪᴛꜱ @MONKEY_D_LUUFY🙏🥲
     DEV_TXT = """<b><u>Sᴩᴇᴄɪᴀʟ Tʜᴀɴᴋꜱ Tᴏ Dᴇᴠᴇʟᴏᴩᴇʀ</b></u>\n
-<b>» ᴏᴡɴᴇʀ : <a href=https://t.me/Monkey_d_luufy>ʟᴜꜰꜰʏ</a>
+<b>» ᴏᴡɴᴇʀ : <a href=https://t.me/GeekLuffy>ʟᴜꜰꜰʏ</a>
 » ɢɪᴛʜᴜʙ :  <a href=https://github.com/GeekLuffy/>ʟᴜꜰꜰʏ</a>
 » ꜱᴏᴜʀᴄᴇ ᴄᴏᴅᴇ : <a href=https://t.me/Monkey_d_luufy>ᴇᴅɢᴇ ʀᴇɴᴀᴍᴇ ʙᴏᴛ</a>
 » ᴍᴀɪɴ ᴄʜᴀɴɴᴇʟ : <a href=https://t.me/Anime_Edge>ᴀɴɪᴍᴇ ᴇᴅɢᴇ</a>
