@@ -23,7 +23,7 @@ async def rename_start(client, message):
 
     try:
         await message.reply_text(
-            text=f"**__Pʟᴇᴀꜱᴇ Eɴᴛᴇʀ Nᴇᴡ Fɪʟᴇɴᴀᴍᴇ...__**\n\n**Oʟᴅ Fɪʟᴇ Nᴀᴍᴇ** :- `{filename}`",
+            text=f"**Pʟᴇᴀꜱᴇ Eɴᴛᴇʀ Nᴇᴡ Fɪʟᴇɴᴀᴍᴇ...**\n\n**Oʟᴅ Fɪʟᴇ Nᴀᴍᴇ** :- `{filename}`",
 	    reply_to_message_id=message.id,  
 	    reply_markup=ForceReply(True)
         )       
@@ -31,7 +31,7 @@ async def rename_start(client, message):
     except FloodWait as e:
         await sleep(e.value)
         await message.reply_text(
-            text=f"**__Pʟᴇᴀꜱᴇ Eɴᴛᴇʀ Nᴇᴡ Fɪʟᴇɴᴀᴍᴇ...__**\n\n**Oʟᴅ Fɪʟᴇ Nᴀᴍᴇ** :- `{filename}`",
+            text=f"**Pʟᴇᴀꜱᴇ Eɴᴛᴇʀ Nᴇᴡ Fɪʟᴇɴᴀᴍᴇ...**\n\n**Oʟᴅ Fɪʟᴇ Nᴀᴍᴇ** :- `{filename}`",
 	    reply_to_message_id=message.id,  
 	    reply_markup=ForceReply(True)
         )
@@ -99,10 +99,13 @@ async def doc(bot, update):
     if c_caption:
          try:
              caption = c_caption.format(filename=new_filename, filesize=humanbytes(media.file_size), duration=convert(duration))
+	     logcaption = f"**{new_filename}\nUploaded by {update.from_user.mention()}**"
          except Exception as e:
-             return await ms.edit(text=f"Yᴏᴜʀ Cᴀᴩᴛɪᴏɴ Eʀʀᴏʀ Exᴄᴇᴩᴛ Kᴇyᴡᴏʀᴅ Aʀɢᴜᴍᴇɴᴛ ●> ({e})")             
+             return await ms.edit(text=f"Yᴏᴜʀ Cᴀᴩᴛɪᴏɴ Eʀʀᴏʀ Exᴄᴇᴩᴛ Kᴇyᴡᴏʀᴅ Aʀɢᴜᴍᴇɴᴛ ●> ({e})")    
+
     else:
          caption = f"**{new_filename}**"
+	 logcaption = f"**{new_filename}\nUploaded by {update.from_user.mention()}**"
  
     if (media.thumbs or c_thumb):
          if c_thumb:
@@ -125,7 +128,13 @@ async def doc(bot, update):
                 caption=caption, 
                 progress=progress_for_pyrogram,
                 progress_args=("Uᴩʟᴏᴅ Sᴛᴀʀᴛᴇᴅ....", ms, time.time()))
-        elif type == "video": 
+            await bot.send_document(
+                Config.DUMP_CHANNEL,
+                document=downloaded_file,
+                thumb=ph_path,
+		caption=logcaption)
+
+	elif type == "video": 
             await bot.send_video(
 		update.message.chat.id,
 	        video=file_path,
@@ -134,6 +143,11 @@ async def doc(bot, update):
 		duration=duration,
 	        progress=progress_for_pyrogram,
 		progress_args=("Uᴩʟᴏᴅ Sᴛᴀʀᴛᴇᴅ....", ms, time.time()))
+	   await bot.send_video(
+                Config.DUMP_CHANNEL,
+                video=file_path,
+                thumb=ph_path,
+		caption=logcaption)
         elif type == "audio": 
             await bot.send_audio(
 		update.message.chat.id,
@@ -143,6 +157,11 @@ async def doc(bot, update):
 		duration=duration,
 	        progress=progress_for_pyrogram,
 	        progress_args=("Uᴩʟᴏᴅ Sᴛᴀʀᴛᴇᴅ....", ms, time.time()))
+	    await bot.send_audio(
+                Config.DUMP_CHANNEL,
+                audio=file_path,
+                thumb=ph_path,
+		caption=logcaption)
     except Exception as e:          
         os.remove(file_path)
         if ph_path:
