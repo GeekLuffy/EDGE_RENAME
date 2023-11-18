@@ -105,7 +105,8 @@ async def doc(bot, update):
 
     else:
          caption = f"**{new_filename}**"
-	 logcaption = f"**{new_filename}\nUploaded by {update.from_user.mention()}**"
+	 logcaption = f"""**{new_filename}**
+Uploaded by {update.from_user.mention()}"""
  
     if (media.thumbs or c_thumb):
          if c_thumb:
