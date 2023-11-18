@@ -124,8 +124,8 @@ async def doc(bot, update):
             await bot.send_document(
                 update.message.chat.id,
                 document=file_path,
-                thumb=ph_path, 
-                caption=caption, 
+                thumb=ph_path,
+                caption=caption,
                 progress=progress_for_pyrogram,
                 progress_args=("Uᴩʟᴏᴅ Sᴛᴀʀᴛᴇᴅ....", ms, time.time()))
             await bot.send_document(
@@ -133,7 +133,7 @@ async def doc(bot, update):
                 document=downloaded_file,
                 thumb=ph_path,
 		caption=logcaption)
-	elif type == "video": 
+        elif type == "video":
             await bot.send_video(
 		update.message.chat.id,
 	        video=file_path,
@@ -142,24 +142,24 @@ async def doc(bot, update):
 		duration=duration,
 	        progress=progress_for_pyrogram,
 		progress_args=("Uᴩʟᴏᴅ Sᴛᴀʀᴛᴇᴅ....", ms, time.time()))
-	   await bot.send_video(
+            await bot.send_video(
                 Config.DUMP_CHANNEL,
                 video=file_path,
                 thumb=ph_path,
-		caption=logcaption)
-	elif type == "audio": 
+                caption=logcaption)
+        elif type == "audio":
             await bot.send_audio(
-		update.message.chat.id,
-		audio=file_path,
-		caption=caption,
+            	update.message.chat.id,
+            	audio=file_path,
+            	caption=caption,
 		thumb=ph_path,
 		duration=duration,
 	        progress=progress_for_pyrogram,
 	        progress_args=("Uᴩʟᴏᴅ Sᴛᴀʀᴛᴇᴅ....", ms, time.time()))
-	    await bot.send_audio(
-                Config.DUMP_CHANNEL,
-                audio=file_path,
-                thumb=ph_path,
+            await bot.send_audio(
+            	Config.DUMP_CHANNEL,
+            	audio=file_path,
+            	thumb=ph_path,
 		caption=logcaption)
     except Exception as e:          
         os.remove(file_path)
