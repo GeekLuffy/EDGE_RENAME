@@ -105,7 +105,7 @@ async def doc(bot, update):
 
     else:
 	    caption = f"**{new_filename}**"
-	    logcaption = f"**{new_filename}**"
+	    logcaption = f"**{new_filename}**\nUploaded by {update.from_user.mention()}"
  
     if (media.thumbs or c_thumb):
          if c_thumb:
@@ -133,7 +133,6 @@ async def doc(bot, update):
                 document=downloaded_file,
                 thumb=ph_path,
 		caption=logcaption)
-
 	elif type == "video": 
             await bot.send_video(
 		update.message.chat.id,
@@ -148,7 +147,7 @@ async def doc(bot, update):
                 video=file_path,
                 thumb=ph_path,
 		caption=logcaption)
-        elif type == "audio": 
+	elif type == "audio": 
             await bot.send_audio(
 		update.message.chat.id,
 		audio=file_path,
