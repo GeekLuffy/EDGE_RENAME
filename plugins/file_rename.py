@@ -99,7 +99,7 @@ async def doc(bot, update):
     if c_caption:
          try:
              caption = c_caption.format(filename=new_filename, filesize=humanbytes(media.file_size), duration=convert(duration))
-	     logcaption = f"**{new_filename}\nUploaded by {update.from_user.mention()}**"
+
          except Exception as e:
              return await ms.edit(text=f"Yᴏᴜʀ Cᴀᴩᴛɪᴏɴ Eʀʀᴏʀ Exᴄᴇᴩᴛ Kᴇyᴡᴏʀᴅ Aʀɢᴜᴍᴇɴᴛ ●> ({e})")    
 
