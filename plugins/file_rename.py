@@ -104,9 +104,8 @@ async def doc(bot, update):
              return await ms.edit(text=f"Yᴏᴜʀ Cᴀᴩᴛɪᴏɴ Eʀʀᴏʀ Exᴄᴇᴩᴛ Kᴇyᴡᴏʀᴅ Aʀɢᴜᴍᴇɴᴛ ●> ({e})")    
 
     else:
-         caption = f"**{new_filename}**"
-	 logcaption = f"""**{new_filename}**
-Uploaded by {update.from_user.mention()}"""
+	    caption = f"**{new_filename}**"
+	    logcaption = f"**{new_filename}**"
  
     if (media.thumbs or c_thumb):
          if c_thumb:
