@@ -41,7 +41,7 @@ class Config(object):
     FORCE_SUB_1 = os.environ.get("FORCE_SUB_1", "EdgeBotSupport")
     FORCE_SUB_2 = os.environ.get("FORCE_SUB_2", "EdgeBots")
     LOG_CHANNEL = int(os.environ.get("LOG_CHANNEL", -1001863937035))
-    DUMP_CHANNEL = int(os.environ.get("DUMP_CHANNEL", -1002131803512))
+    DUMP_CHANNEL = int(os.environ.get("DUMP_CHANNEL", "-1002131803512"))
 
     # wes response configuration     
     WEBHOOK = bool(os.environ.get("WEBHOOK", True))
