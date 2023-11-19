@@ -5,6 +5,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ForceRepl
 
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
+import config
 
 from helper.utils import progress_for_pyrogram, convert, humanbytes
 from helper.database import db
@@ -129,7 +130,7 @@ async def doc(bot, update):
                 progress=progress_for_pyrogram,
                 progress_args=("Uᴩʟᴏᴅ Sᴛᴀʀᴛᴇᴅ....", ms, time.time()))
             await bot.send_document(
-                Config.DUMP_CHANNEL,
+                config.DUMP_CHANNEL,
                 document=downloaded_file,
                 thumb=ph_path,
 		caption=logcaption)
@@ -143,7 +144,7 @@ async def doc(bot, update):
 	        progress=progress_for_pyrogram,
 		progress_args=("Uᴩʟᴏᴅ Sᴛᴀʀᴛᴇᴅ....", ms, time.time()))
             await bot.send_video(
-                Config.DUMP_CHANNEL,
+                config.DUMP_CHANNEL,
                 video=file_path,
                 thumb=ph_path,
                 caption=logcaption)
@@ -157,7 +158,7 @@ async def doc(bot, update):
 	        progress=progress_for_pyrogram,
 	        progress_args=("Uᴩʟᴏᴅ Sᴛᴀʀᴛᴇᴅ....", ms, time.time()))
             await bot.send_audio(
-            	Config.DUMP_CHANNEL,
+            	config.DUMP_CHANNEL,
             	audio=file_path,
             	thumb=ph_path,
 		caption=logcaption)
