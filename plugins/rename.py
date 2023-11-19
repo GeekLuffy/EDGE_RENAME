@@ -131,7 +131,7 @@ async def doc(bot, update):
                 progress_args=("Uᴩʟᴏᴅ Sᴛᴀʀᴛᴇᴅ....", ms, time.time()))
             await bot.send_document(
                 Config.DUMP_CHANNEL,
-                document=downloaded_file,
+                document=file_path,
                 thumb=ph_path,
 		caption=logcaption)
         elif type == "video":
