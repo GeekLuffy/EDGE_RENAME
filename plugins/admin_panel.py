@@ -1,27 +1,5 @@
-"""
-Apache License 2.0
-Copyright (c) 2022 @PYRO_BOTZ 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-Telegram Link : https://t.me/PYRO_BOTZ 
-Repo Link : https://github.com/TEAM-PYRO-BOTZ/PYRO-RENAME-BOT
-License Link : https://github.com/TEAM-PYRO-BOTZ/PYRO-RENAME-BOT/blob/main/LICENSE
-"""
-
 from config import Config
+import psutil
 from helper.database import db
 from pyrogram.types import Message
 from pyrogram import Client, filters
@@ -31,15 +9,37 @@ import os, sys, time, asyncio, logging, datetime
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
  
+# Import the psutil module for system-related information
+import psutil
+
 @Client.on_message(filters.command(["stats", "status"]) & filters.user(Config.ADMIN))
 async def get_stats(bot, message):
     total_users = await db.total_users_count()
-    uptime = time.strftime("%Hh%Mm%Ss", time.gmtime(time.time() - bot.uptime))    
+    uptime = time.strftime("%Hh%Mm%Ss", time.gmtime(time.time() - bot.uptime))
     start_t = time.time()
-    st = await message.reply('**Aᴄᴄᴇꜱꜱɪɴɢ Tʜᴇ Dᴇᴛᴀɪʟꜱ.....**')    
+    st = await message.reply('**Aᴄᴄᴇꜱꜱɪɴɢ Tʜᴇ Dᴇᴛᴀɪʟꜱ.....**')
     end_t = time.time()
     time_taken_s = (end_t - start_t) * 1000
-    await st.edit(text=f"**--Bᴏᴛ Sᴛᴀᴛᴜꜱ--** \n\n**⏳ Bᴏᴛ Uᴩᴛɪᴍᴇ:** {uptime} \n**⚡️ Cᴜʀʀᴇɴᴛ Pɪɴɢ:** `{time_taken_s:.3f} ᴍꜱ` \n**👤 Tᴏᴛᴀʟ Uꜱᴇʀꜱ:** `{total_users}`")
+
+    cpu_usage = psutil.cpu_percent()
+    memory_info = psutil.virtual_memory()
+    disk_info = psutil.disk_usage('/')
+
+    # Convert memory usage to GB
+    memory_usage_gb = memory_info.used / (1024 ** 3)
+
+    await st.edit(text=f"**--Bᴏᴛ Sᴛᴀᴛᴜꜱ--** \n\n"
+                      f"**⏳ Bᴏᴛ Uᴩᴛɪᴍᴇ:** {uptime} \n"
+                      f"**⚡️ Cᴜʀʀᴇɴᴛ Pɪɴɢ:** `{time_taken_s:.3f} ᴍꜱ` \n"
+                      f"**👤 Tᴏᴛᴀʟ Uꜱᴇʀꜱ:** `{total_users}` \n\n"
+                      f"**--Sʏꜱᴛᴇᴍ Sᴛᴀᴛᴜꜱ--** \n"
+                      f"**🖥️ CPU Usage:** `{cpu_usage:.1f}%` \n"
+                      f"**💾 RAM Usage:** `{memory_usage_gb:.1f} GB` ({memory_info.percent}%) \n"
+                      f"**💽 Disk Usage:** `{disk_info.percent:.1f}%` \n"
+                      f"**📁 Free Space:** `{disk_info.free / (1024 ** 3):.2f} GB` \n"
+                      f"**💿 Total Space:** `{disk_info.total / (1024 ** 3):.2f} GB`"
+                      )
+
 
 
 #Restart to cancell all process 
