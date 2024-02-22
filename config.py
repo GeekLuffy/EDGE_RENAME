@@ -31,7 +31,7 @@ class Config(object):
     BOT_TOKEN = os.environ.get("BOT_TOKEN", "6868232253:AAFskRgUwqfWE9nDg443lRWHgYFrReAb2Nk") 
    
     # database config
-    DB_NAME = os.environ.get("DB_NAME","pyro-botz")     
+    DB_NAME = os.environ.get("DB_NAME","Zoro")     
     DB_URL  = os.environ.get("DB_URL","mongodb+srv://owais:owais2006@renamebot.phiebzw.mongodb.net/?retryWrites=true&w=majority")
  
     # other configs
