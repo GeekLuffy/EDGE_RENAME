@@ -44,7 +44,7 @@ async def cb_handler(client, query: CallbackQuery):
         )
     elif data == "donate":
         await query.message.edit_text(
-            text=Txt.DONATE_TXT,
+            text=Txt.DONATE_TXT.format(query.from_user.mention),
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup([[
                 # ⚠️ don't change source code & source link ⚠️ #
