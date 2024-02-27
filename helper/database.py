@@ -13,7 +13,9 @@ class Database:
         return dict(
             _id=int(id),                                   
             file_id=None,
-            caption=None
+            caption=None,
+            prefix=None,
+            suffix=None
         )
 
     async def add_user(self, b, m):
