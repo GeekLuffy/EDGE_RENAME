@@ -4,7 +4,10 @@ from pytz import timezone
 from config import Config, Txt 
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-
+def convert_time(seconds):
+    minutes, seconds = divmod(seconds, 60)
+    hours, minutes = divmod(minutes, 60)
+    return f"{int(hours)}h {int(minutes)}m {int(seconds)}s"
 
 async def progress_for_pyrogram(current, total, ud_type, message, start):
     now = time.time()
@@ -18,22 +21,28 @@ async def progress_for_pyrogram(current, total, ud_type, message, start):
 
         elapsed_time = TimeFormatter(milliseconds=elapsed_time)
         estimated_total_time = TimeFormatter(milliseconds=estimated_total_time)
+        time_left = (total - current) / speed
+        elapsed_minutes = int(diff / 60)  # Calculate elapsed minutes
+        elapsed_seconds = int(diff % 60)  # Calculate elapsed seconds
 
-        progress = "{0}{1}".format(
-            ''.join(["▣" for i in range(math.floor(percentage / 5))]),
-            ''.join(["▢" for i in range(20 - math.floor(percentage / 5))])
-        )
-        tmp = progress + Txt.PROGRESS_BAR.format(
-            round(percentage, 2),
-            humanbytes(current),
-            humanbytes(total),
-            humanbytes(speed),
-            estimated_total_time if estimated_total_time != '' else "0 s"
-        )
+        num_boxes = 10
+        completed_boxes = int(percentage / (100 / num_boxes))
+        remaining_boxes = num_boxes - completed_boxes
+
+        progress = "■" * completed_boxes + "□" * remaining_boxes
+
+        text = f"Progress: [{progress}] {percentage:.1f}%\n"
+        if ud_type == "Uᴩʟᴏᴀᴅ Sᴛᴀʀᴛᴇᴅ....":
+            text += f"📤 Uploading: {humanbytes(current)} | {humanbytes(total)}\n"
+        else:
+            text += f"📥 Downloading: {humanbytes(current)} | {humanbytes(total)}\n"
+        text += f"⚡️ Speed: {humanbytes(speed)}/s\n"
+        text += f"⌛ ETA: {convert_time(time_left)}\n"
+        text += f"⏱️ Time elapsed: {elapsed_minutes}m {elapsed_seconds}s"
         try:
             await message.edit(
-                text=f"{tmp}",
-                reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("✖️ Cancel ✖️", callback_data="close")]])
+                text=text,
+                reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("✖️ 𝙲𝙰𝙽𝙲𝙴𝙻 ✖️", callback_data="close")]])
             )
         except:
             pass
