@@ -4,6 +4,40 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ForceRepl
 from helper.database import db
 from config import Config, Txt
 
+@Client.on_message(filters.command("metadata"))
+async def metadata(client, message):
+    user_id = message.from_user.id
+
+    current = await db.get_metadata(user_id)
+
+    title = await db.get_title(user_id)
+    author = await db.get_author(user_id)
+    artist = await db.get_artist(user_id)
+    video = await db.get_video(user_id)
+    audio = await db.get_audio(user_id)
+    subtitle = await db.get_subtitle(user_id)
+
+    text = f"""
+    **㊋ Yᴏᴜʀ Mᴇᴛᴀᴅᴀᴛᴀ ɪꜱ ᴄᴜʀʀᴇɴᴛʟʏ: {current}**
+
+**◈ Tɪᴛʟᴇ ▹** `{title if title else 'Nᴏᴛ ꜰᴏᴜɴᴅ'}`
+**◈ Aᴜᴛʜᴏʀ ▹** `{author if author else 'Nᴏᴛ ꜰᴏᴜɴᴅ'}`
+**◈ Aʀᴛɪꜱᴛ ▹** `{artist if artist else 'Nᴏᴛ ꜰᴏᴜɴᴅ'}`
+**◈ Aᴜᴅɪᴏ ▹** `{audio if audio else 'Nᴏᴛ ꜰᴏᴜɴᴅ'}`
+**◈ Sᴜʙᴛɪᴛʟᴇ ▹** `{subtitle if subtitle else 'Nᴏᴛ ꜰᴏᴜɴᴅ'}`
+**◈ Vɪᴅᴇᴏ ▹** `{video if video else 'Nᴏᴛ ꜰᴏᴜɴᴅ'}`
+    """
+
+    button = [[
+        InlineKeyboardButton(f"On{' ✅' if current == 'On' else ''}", callback_data='on_metadata'),
+        InlineKeyboardButton(f"Off{' ✅' if current == 'Off' else ''}", callback_data='off_metadata')
+    ],
+        [
+            InlineKeyboardButton("How to Set Metadata", callback_data="metainfo")
+        ]]
+    keyboard = InlineKeyboardMarkup(button)
+
+    await message.reply_text(text=text, reply_markup=keyboard, disable_web_page_preview=True)
 
 @Client.on_message(filters.private & filters.command("start"))
 async def start(client, message):
@@ -42,6 +76,85 @@ async def cb_handler(client, query: CallbackQuery):
                 InlineKeyboardButton('Dᴏɴᴀᴛᴇ', callback_data='donate')
             ]])
         )
+    elif data == "on_metadata":
+        user_id = query.from_user.id
+        await db.set_metadata(user_id, "On")
+
+        current = await db.get_metadata(user_id)
+        title = await db.get_title(user_id)
+        author = await db.get_author(user_id)
+        artist = await db.get_artist(user_id)
+        video = await db.get_video(user_id)
+        audio = await db.get_audio(user_id)
+        subtitle = await db.get_subtitle(user_id)
+
+        text = f"""
+            **㊋ Yᴏᴜʀ Mᴇᴛᴀᴅᴀᴛᴀ ɪꜱ ᴄᴜʀʀᴇɴᴛʟʏ: {current}**
+
+**◈ Tɪᴛʟᴇ ▹** `{title if title else 'Nᴏᴛ ꜰᴏᴜɴᴅ'}`
+**◈ Aᴜᴛʜᴏʀ ▹** `{author if author else 'Nᴏᴛ ꜰᴏᴜɴᴅ'}`
+**◈ Aʀᴛɪꜱᴛ ▹** `{artist if artist else 'Nᴏᴛ ꜰᴏᴜɴᴅ'}`
+**◈ Aᴜᴅɪᴏ ▹** `{audio if audio else 'Nᴏᴛ ꜰᴏᴜɴᴅ'}`
+**◈ Sᴜʙᴛɪᴛʟᴇ ▹** `{subtitle if subtitle else 'Nᴏᴛ ꜰᴏᴜɴᴅ'}`
+**◈ Vɪᴅᴇᴏ ▹** `{video if video else 'Nᴏᴛ ꜰᴏᴜɴᴅ'}`
+            """
+
+        await query.message.edit_text(
+            text=text,
+            disable_web_page_preview=True,
+            reply_markup=InlineKeyboardMarkup([[
+                InlineKeyboardButton(f"On{' ✅' if current == 'On' else ''}", callback_data='on_metadata'),
+                InlineKeyboardButton(f"Off{' ✅' if current == 'Off' else ''}", callback_data='off_metadata')
+            ],
+                [
+                    InlineKeyboardButton("How to Set Metadata", callback_data="metainfo")
+                ]])
+        )
+
+    elif data == "off_metadata":
+        user_id = query.from_user.id
+        await db.set_metadata(user_id, "Off")
+        current = await db.get_metadata(user_id)
+
+        title = await db.get_title(user_id)
+        author = await db.get_author(user_id)
+        artist = await db.get_artist(user_id)
+        video = await db.get_video(user_id)
+        audio = await db.get_audio(user_id)
+        subtitle = await db.get_subtitle(user_id)
+
+        text = f"""
+            **㊋ Yᴏᴜʀ Mᴇᴛᴀᴅᴀᴛᴀ ɪꜱ ᴄᴜʀʀᴇɴᴛʟʏ: {current}**
+
+**◈ Tɪᴛʟᴇ ▹** `{title if title else 'Nᴏᴛ ꜰᴏᴜɴᴅ'}`
+**◈ Aᴜᴛʜᴏʀ ▹** `{author if author else 'Nᴏᴛ ꜰᴏᴜɴᴅ'}`
+**◈ Aʀᴛɪꜱᴛ ▹** `{artist if artist else 'Nᴏᴛ ꜰᴏᴜɴᴅ'}`
+**◈ Aᴜᴅɪᴏ ▹** `{audio if audio else 'Nᴏᴛ ꜰᴏᴜɴᴅ'}`
+**◈ Sᴜʙᴛɪᴛʟᴇ ▹** `{subtitle if subtitle else 'Nᴏᴛ ꜰᴏᴜɴᴅ'}`
+**◈ Vɪᴅᴇᴏ ▹** `{video if video else 'Nᴏᴛ ꜰᴏᴜɴᴅ'}`
+            """
+        await query.message.edit_text(
+            text=text,
+            disable_web_page_preview=True,
+            reply_markup=InlineKeyboardMarkup([[
+                InlineKeyboardButton(f"On{' ✅' if current == 'On' else ''}", callback_data='on_metadata'),
+                InlineKeyboardButton(f"Off{' ✅' if current == 'Off' else ''}", callback_data='off_metadata')
+            ],
+                [
+                    InlineKeyboardButton("How to Set Metadata", callback_data="metainfo")
+                ]])
+        )
+    elif data == "metainfo":
+        await query.message.edit_text(
+            text=Txt.META_TXT,
+            disable_web_page_preview=True,
+            reply_markup=InlineKeyboardMarkup([[
+                InlineKeyboardButton("Hᴏᴍᴇ", callback_data="start"),
+                InlineKeyboardButton("Bᴀᴄᴋ", callback_data="commands")
+            ]])
+        )
+
+
     elif data == "donate":
         await query.message.edit_text(
             text=Txt.DONATE_TXT.format(query.from_user.mention),
@@ -57,6 +170,9 @@ async def cb_handler(client, query: CallbackQuery):
             text=Txt.HELP_TXT.format(client.mention),
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup([
+                [
+                    InlineKeyboardButton("Metadata", callback_data="metainfo"),
+                ],
                 [
                     InlineKeyboardButton("Captions", callback_data="caption"),
                     InlineKeyboardButton("Thumbnails", callback_data="thumbnail")],

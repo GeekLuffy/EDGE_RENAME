@@ -1,3 +1,6 @@
+import shutil
+import subprocess
+
 from pyrogram import Client, filters
 from pyrogram.enums import MessageMediaType
 from pyrogram.errors import FloodWait
@@ -71,6 +74,7 @@ async def refunc(client, message):
 
 @Client.on_callback_query(filters.regex("upload"))
 async def doc(bot, update):
+    user_id = update.from_user.id
     prefix = await db.get_prefix(update.message.chat.id)
     suffix = await db.get_suffix(update.message.chat.id)
     new_name = update.message.text
@@ -107,6 +111,56 @@ async def doc(bot, update):
                                         progress_args=("`Download Started....`", ms, time.time()))
     except Exception as e:
         return await ms.edit(e)
+
+    user_metadata_enabled = await db.get_metadata(user_id)
+    if user_metadata_enabled == "On":
+
+        # Generate a temporary file path
+        temp_output_file = file_path.replace('.mkv', '_temp.mkv')
+
+        ffmpeg_cmd = shutil.which('ffmpeg')
+
+        title = await db.get_title(user_id)
+        author = await db.get_author(user_id)
+        artist = await db.get_artist(user_id)
+        video = await db.get_video(user_id)
+        audio = await db.get_audio(user_id)
+        subtitle = await db.get_subtitle(user_id)
+
+        # Add metadata using subprocess and ffmpeg command
+        metadata_command = [
+            'ffmpeg',
+            '-i', file_path,
+            '-metadata', f'title={title}',
+            '-metadata', f'artist={artist}',
+            '-metadata', f'author={author}',
+            # '-metadata', 'comment=Join @Anime_Edge for more content',
+            '-metadata', 'additional_key=additional_value',
+            '-metadata:s:v', f'title={video}',
+            '-metadata:s:a', f'title={audio}',
+            '-metadata:s:s', f'title={subtitle}',
+            '-map', '0',
+            '-c', 'copy',
+            '-loglevel', 'error',
+            temp_output_file
+        ]
+
+        try:
+            subprocess.run(metadata_command, check=True)
+            # Rename the temporary file to the desired output file
+            shutil.move(temp_output_file, file_path)
+
+        except subprocess.CalledProcessError as e:
+            # send the error to the user
+            await ms.edit(f"Error adding metadata: {e}")
+            print(f"Error adding metadata: {e}")
+
+        finally:
+            # Cleanup: Remove the temporary file if it exists
+            if os.path.exists(temp_output_file):
+                os.remove(temp_output_file)
+    else:
+        print("Metadata is disabled for this user.")
 
     duration = 0
     try:
