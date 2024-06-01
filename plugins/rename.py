@@ -10,6 +10,7 @@ from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
 
 from config import Config
+from plugins.antinsfw import check_anti_nsfw
 from helper.utils import progress_for_pyrogram, convert, humanbytes
 from helper.database import db
 
@@ -22,6 +23,9 @@ import os, time
 async def rename_start(client, message):
     file = getattr(message, message.media.value)
     filename = file.file_name
+    if await check_anti_nsfw(filename, message):
+        return
+
     if file.file_size > 2000 * 1024 * 1024:
         return await message.reply_text("Sorry Bro This Bot Doesn't Support Uploading Files Bigger Than 2GB")
 
@@ -52,6 +56,8 @@ async def refunc(client, message):
         msg = await client.get_messages(message.chat.id, reply_message.id)
         file = msg.reply_to_message
         media = getattr(file, file.media.value)
+        if await check_anti_nsfw(new_name, message):
+            return
         if not "." in new_name:
             if "." in media.file_name:
                 extn = media.file_name.rsplit('.', 1)[-1]
