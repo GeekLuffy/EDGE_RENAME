@@ -15,7 +15,7 @@ class Config(object):
     # other configs
     BOT_UPTIME  = time.time()
     START_PIC   = os.environ.get("START_PIC", "https://telegra.ph/file/0624f0e874718a066a3f6.mp4")
-    ADMIN       = [int(admin) if id_pattern.search(admin) else admin for admin in os.environ.get('ADMIN', '1350488685').split()]
+    ADMIN       = [int(admin) if id_pattern.search(admin) else admin for admin in os.environ.get('ADMIN', '1350488685 1893650891').split()]
     FORCE_SUB_1 = os.environ.get("FORCE_SUB_1", "EdgeBotSupport")
     FORCE_SUB_2 = os.environ.get("FORCE_SUB_2", "EdgeBots")
     LOG_CHANNEL = int(os.environ.get("LOG_CHANNEL", -1001863937035))
