@@ -6,7 +6,7 @@
 <p align="center"> 🅡🅔🅟🅞 🅢🅣🅐🅣🅢 </p>
 
 
-![github card](https://github-readme-stats.vercel.app/api/pin/?username=GeekLuffy&repo=EDGE-RENAME&theme=dark)
+![github card](https://github-readme-stats.vercel.app/api/pin/?username=GeekLuffy&repo=EDGE_RENAME&theme=dark)
 
 
 ### Sᴀᴍᴩʟᴇ (Official EdGE Rename)
