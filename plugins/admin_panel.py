@@ -17,28 +17,52 @@ async def get_stats(bot, message):
     total_users = await db.total_users_count()
     uptime = time.strftime("%Hh%Mm%Ss", time.gmtime(time.time() - bot.uptime))
     start_t = time.time()
-    st = await message.reply('**Aᴄᴄᴇꜱꜱɪɴɢ Tʜᴇ Dᴇᴛᴀɪʟꜱ.....**')
+    st = await message.reply('`📊 Fetching Stats...`')
     end_t = time.time()
     time_taken_s = (end_t - start_t) * 1000
 
+    # CPU Information
     cpu_usage = psutil.cpu_percent()
+    cpu_freq = psutil.cpu_freq()
+    cpu_count = psutil.cpu_count()
+    physical_cores = psutil.cpu_count(logical=False)
+    
+    # Memory Information
     memory_info = psutil.virtual_memory()
-    disk_info = psutil.disk_usage('/')
-
-    # Convert memory usage to GB
     memory_usage_gb = memory_info.used / (1024 ** 3)
+    total_memory_gb = memory_info.total / (1024 ** 3)
+    
+    # Disk Information
+    disk_info = psutil.disk_usage('/')
+    disk_used_gb = (disk_info.total - disk_info.free) / (1024 ** 3)
+    disk_total_gb = disk_info.total / (1024 ** 3)
+    
+    stats_text = f"""
+╭─《 **BOT STATUS** 》
+├ **Users:** `{total_users:,}`
+├ **Uptime:** `{uptime}`
+├ **Response:** `{time_taken_s:.1f} ms`
+│
+├─《 **CPU INFO** 》
+├ **Usage:** `{cpu_usage:.1f}%`
+├ **Cores:** `{physical_cores}`
+├ **Threads:** `{cpu_count}`
+├ **Frequency:** `{cpu_freq.current/1000:.1f} GHz`
+├ **Max Freq:** `{cpu_freq.max/1000:.1f} GHz`
+├ **Min Freq:** `{cpu_freq.min/1000:.1f} GHz`
+│
+├─《 **MEMORY INFO** 》
+├ **Used:** `{memory_usage_gb:.1f}/{total_memory_gb:.1f} GB`
+├ **Percentage:** `{memory_info.percent}%`
+├ **Available:** `{(memory_info.available/1024/1024/1024):.1f} GB`
+│
+├─《 **STORAGE INFO** 》
+├ **Used:** `{disk_used_gb:.1f}/{disk_total_gb:.1f} GB`
+├ **Percentage:** `{disk_info.percent}%`
+├ **Free Space:** `{(disk_info.free/1024/1024/1024):.1f} GB`
+╰─《 **@EdgeBots** 》"""
 
-    await st.edit(text=f"**--Bᴏᴛ Sᴛᴀᴛᴜꜱ--** \n\n"
-                      f"**⏳ Bᴏᴛ Uᴩᴛɪᴍᴇ:** {uptime} \n"
-                      f"**⚡️ Cᴜʀʀᴇɴᴛ Pɪɴɢ:** `{time_taken_s:.3f} ᴍꜱ` \n"
-                      f"**👤 Tᴏᴛᴀʟ Uꜱᴇʀꜱ:** `{total_users}` \n\n"
-                      f"**--Sʏꜱᴛᴇᴍ Sᴛᴀᴛᴜꜱ--** \n"
-                      f"**🖥️ CPU Usage:** `{cpu_usage:.1f}%` \n"
-                      f"**💾 RAM Usage:** `{memory_usage_gb:.1f} GB` ({memory_info.percent}%) \n"
-                      f"**💽 Disk Usage:** `{disk_info.percent:.1f}%` \n"
-                      f"**📁 Free Space:** `{disk_info.free / (1024 ** 3):.2f} GB` \n"
-                      f"**💿 Total Space:** `{disk_info.total / (1024 ** 3):.2f} GB`"
-                      )
+    await st.edit(stats_text)
 
 
 
