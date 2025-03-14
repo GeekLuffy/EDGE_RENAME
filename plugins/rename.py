@@ -120,9 +120,10 @@ async def doc(bot, update):
 
     user_metadata_enabled = await db.get_metadata(user_id)
     if user_metadata_enabled == "On":
+        print("Metadata is enabled for this user.")
 
         # Generate a temporary file path
-        temp_output_file = file_path.replace('.mkv', '_temp.mkv')
+        temp_output_file = file_path.replace(".mkv", "_temp.mkv").replace(".mp4", "_temp.mp4")
 
         ffmpeg_cmd = shutil.which('ffmpeg')
 
@@ -132,6 +133,19 @@ async def doc(bot, update):
         video = await db.get_video(user_id)
         audio = await db.get_audio(user_id)
         subtitle = await db.get_subtitle(user_id)
+
+        # Log metadata values being applied
+        metadata_log = f"""
+🎯 Aᴘᴘʟʏɪɴɢ Mᴇᴛᴀᴅᴀᴛᴀ:
+├ Fɪʟᴇ: {os.path.basename(file_path)}
+├ Tɪᴛʟᴇ: {title or 'Not set'}
+├ Aᴜᴛʜᴏʀ: {author or 'Not set'}
+├ Aʀᴛɪsᴛ: {artist or 'Not set'}
+├ Vɪᴅᴇᴏ Tɪᴛʟᴇ: {video or 'Not set'}
+├ Aᴜᴅɪᴏ Tɪᴛʟᴇ: {audio or 'Not set'}
+└ Sᴜʙᴛɪᴛʟᴇ: {subtitle or 'Not set'}"""
+
+        await ms.edit(f"⚡️ Aᴅᴅɪɴɢ Mᴇᴛᴀᴅᴀᴛᴀ...\n\n{metadata_log}")
 
         # Add metadata using subprocess and ffmpeg command
         metadata_command = [
@@ -153,12 +167,23 @@ async def doc(bot, update):
 
         try:
             subprocess.run(metadata_command, check=True)
-            # Rename the temporary file to the desired output file
             shutil.move(temp_output_file, file_path)
 
+            success_log = f"""
+✅ Mᴇᴛᴀᴅᴀᴛᴀ Aᴅᴅᴇᴅ Sᴜᴄᴄᴇssғᴜʟʟʏ!
+├ Fɪʟᴇ: {os.path.basename(file_path)}
+├ Sɪᴢᴇ: {humanbytes(os.path.getsize(file_path))}
+└ Sᴛᴀᴛᴜs: Completed"""
+            await ms.edit(success_log)
+
         except subprocess.CalledProcessError as e:
-            # send the error to the user
-            await ms.edit(f"Error adding metadata: {e}")
+            error_log = f"""
+❌ Mᴇᴛᴀᴅᴀᴛᴀ Aᴅᴅɪɴɢ Fᴀɪʟᴇᴅ!
+├ Fɪʟᴇ: {os.path.basename(file_path)}
+├ Eʀʀᴏʀ: {str(e)}
+├ FFMPEG Output: {e.output}
+└ Sᴛᴀᴛᴜs: Failed"""
+            await ms.edit(error_log)
             print(f"Error adding metadata: {e}")
 
         finally:
