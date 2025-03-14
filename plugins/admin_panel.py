@@ -17,7 +17,7 @@ async def get_stats(bot, message):
     total_users = await db.total_users_count()
     uptime = time.strftime("%Hh%Mm%Ss", time.gmtime(time.time() - bot.uptime))
     start_t = time.time()
-    st = await message.reply('`📊 Fetching Stats...`')
+    st = await message.reply('`⚡ Fᴇᴛᴄʜɪɴɢ Sʏsᴛᴇᴍ Sᴛᴀᴛs...`')
     end_t = time.time()
     time_taken_s = (end_t - start_t) * 1000
 
@@ -38,29 +38,33 @@ async def get_stats(bot, message):
     disk_total_gb = disk_info.total / (1024 ** 3)
     
     stats_text = f"""
-╭─《 **BOT STATUS** 》
-├ **Users:** `{total_users:,}`
-├ **Uptime:** `{uptime}`
-├ **Response:** `{time_taken_s:.1f} ms`
-│
-├─《 **CPU INFO** 》
-├ **Usage:** `{cpu_usage:.1f}%`
-├ **Cores:** `{physical_cores}`
-├ **Threads:** `{cpu_count}`
-├ **Frequency:** `{cpu_freq.current/1000:.1f} GHz`
-├ **Max Freq:** `{cpu_freq.max/1000:.1f} GHz`
-├ **Min Freq:** `{cpu_freq.min/1000:.1f} GHz`
-│
-├─《 **MEMORY INFO** 》
-├ **Used:** `{memory_usage_gb:.1f}/{total_memory_gb:.1f} GB`
-├ **Percentage:** `{memory_info.percent}%`
-├ **Available:** `{(memory_info.available/1024/1024/1024):.1f} GB`
-│
-├─《 **STORAGE INFO** 》
-├ **Used:** `{disk_used_gb:.1f}/{disk_total_gb:.1f} GB`
-├ **Percentage:** `{disk_info.percent}%`
-├ **Free Space:** `{(disk_info.free/1024/1024/1024):.1f} GB`
-╰─《 **@EdgeBots** 》"""
+✧ **SYSTEM STATISTICS** ✧
+
+╭──────────────────
+┣━ ᴜsᴇʀs » `{total_users:,}`
+┣━ ᴜᴘᴛɪᴍᴇ » `{uptime}`
+┣━ ʀᴇsᴘᴏɴsᴇ » `{time_taken_s:.1f} ms`
+╰──────────────────
+
+╭─── ᴄᴘᴜ ɪɴғᴏ ───⍟
+┣• ᴜsᴀɢᴇ » `{cpu_usage:.1f}%`
+┣• ғʀᴇǫᴜᴇɴᴄʏ » `{cpu_freq.current/1000:.1f} GHz`
+┣• ᴄᴏʀᴇs & ᴛʜʀᴇᴀᴅs » `{physical_cores} & {cpu_count}`
+╰──────────────────
+
+╭── ᴍᴇᴍᴏʀʏ ɪɴғᴏ ──⍟
+┣• ᴜsᴇᴅ » `{memory_usage_gb:.1f}/{total_memory_gb:.1f} GB`
+┣• ᴜsᴀɢᴇ » `{memory_info.percent}%`
+┣• ғʀᴇᴇ » `{(memory_info.available/1024/1024/1024):.1f} GB`
+╰──────────────────
+
+╭── sᴛᴏʀᴀɢᴇ ɪɴғᴏ ──⍟
+┣• ᴜsᴇᴅ » `{disk_used_gb:.1f}/{disk_total_gb:.1f} GB`
+┣• ᴜsᴀɢᴇ » `{disk_info.percent}%`
+┣• ғʀᴇᴇ » `{(disk_info.free/1024/1024/1024):.1f} GB`
+╰──────────────────
+
+✧ **ᴘᴏᴡᴇʀᴇᴅ ʙʏ @EdgeBots** ✧"""
 
     await st.edit(stats_text)
 
