@@ -179,6 +179,8 @@ async def cb_handler(client, query: CallbackQuery):
                 [
                     InlineKeyboardButton("Suffix & Prefix", callback_data="suffix_prefix")],
                 [
+                    InlineKeyboardButton("Dump Channel", callback_data="dump")],
+                [
                     InlineKeyboardButton("Cʟᴏꜱᴇ", callback_data="close"),
                     InlineKeyboardButton("Bᴀᴄᴋ", callback_data="start")
                 ]])
@@ -233,21 +235,49 @@ async def cb_handler(client, query: CallbackQuery):
     elif data == "suffix_prefix":
         await query.message.edit_text(
             text="""<b>ᴛᴏ ꜱᴇᴛ ᴄᴜꜱᴛᴏᴍ ꜱᴜғғɪx & ᴘʀᴇғɪx</b>
-            
+
 **➜ /set_prefix:** ᴛᴏ ꜱᴇᴛ ᴀ ᴄᴜꜱᴛᴏᴍ ᴘʀᴇғɪx.
 **➜ /del_prefix:** ᴛᴏ ᴅᴇʟᴇᴛᴇ ʏᴏᴜʀ ᴄᴜꜱᴛᴏᴍ ᴘʀᴇғɪx.
 **➜ /see_prefix:** ᴛᴏ ᴠɪᴇᴡ ʏᴏᴜʀ ᴄᴜꜱᴛᴏᴍ ᴘʀᴇғɪx.
-            
+
 **➜ /set_suffix:** ᴛᴏ ꜱᴇᴛ ᴀ ᴄᴜꜱᴛᴏᴍ ꜱᴜғғɪx.
 **➜ /del_suffix:** ᴛᴏ ᴅᴇʟᴇᴛᴇ ʏᴏᴜʀ ᴄᴜꜱᴛᴏᴍ ꜱᴜғғɪx.
 **➜ /see_suffix:** ᴛᴏ ᴠɪᴇᴡ ʏᴏᴜʀ ᴄᴜꜱᴛᴏᴍ ꜱᴜғғɪx.
-            
+
 ᴇxᴀᴍᴘʟᴇ: /set_prefix [AE] | /set_suffix [AnimeEdge]
             """,
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup([[
                 InlineKeyboardButton("Hᴏᴍᴇ", callback_data="start"),
                 InlineKeyboardButton("Bᴀᴄᴋ", callback_data="help")
+            ]])
+        )
+
+    elif data == "dump":
+        await query.message.edit_text(
+            text="""
+    **📥 Dᴜᴍᴘ Cʜᴀɴɴᴇʟ Sᴇᴛᴛɪɴɢs**
+
+    Wɪᴛʜ ᴛʜɪs ғᴇᴀᴛᴜʀᴇ, ʏᴏᴜ ᴄᴀɴ sᴇᴛ ᴀ ᴄʜᴀɴɴᴇʟ ᴛᴏ ᴀᴜᴛᴏᴍᴀᴛɪᴄᴀʟʟʏ ғᴏʀᴡᴀʀᴅ ᴀʟʟ ʏᴏᴜʀ ʀᴇɴᴀᴍᴇᴅ ғɪʟᴇs.
+
+    **Hᴏᴡ ᴛᴏ sᴇᴛ ᴜᴘ:**
+
+    1. Cʀᴇᴀᴛᴇ ᴀ ᴄʜᴀɴɴᴇʟ
+    2. Mᴀᴋᴇ ᴛʜᴇ ʙᴏᴛ ᴀᴅᴍɪɴ
+    3. Gᴇᴛ ᴛʜᴇ ᴄʜᴀɴɴᴇʟ ID (-100xxx)
+    4. Usᴇ /setdump ᴄᴏᴍᴍᴀɴᴅ
+
+    **Aᴠᴀɪʟᴀʙʟᴇ Cᴏᴍᴍᴀɴᴅs:**
+
+    • /setdump -100xxxx : Sᴇᴛ ᴅᴜᴍᴘ ᴄʜᴀɴɴᴇʟ
+    • /viewdump : Vɪᴇᴡ ᴄᴜʀʀᴇɴᴛ ᴅᴜᴍᴘ ᴄʜᴀɴɴᴇʟ
+    • /removedump : Rᴇᴍᴏᴠᴇ ᴅᴜᴍᴘ ᴄʜᴀɴɴᴇʟ
+
+    **Nᴏᴛᴇ:** Yᴏᴜ ᴍᴜsᴛ ʙᴇ ᴀɴ ᴀᴅᴍɪɴ ᴏғ ᴛʜᴇ ᴄʜᴀɴɴᴇʟ ᴛᴏ sᴇᴛ ɪᴛ ᴀs ᴅᴜᴍᴘ ᴄʜᴀɴɴᴇʟ.""",
+            disable_web_page_preview=True,
+            reply_markup=InlineKeyboardMarkup([[
+                InlineKeyboardButton("Hᴏᴍᴇ", callback_data="start"),
+                InlineKeyboardButton("Bᴀᴄᴋ", callback_data="commands")
             ]])
         )
     elif data == "close":
