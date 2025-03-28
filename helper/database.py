@@ -118,5 +118,22 @@ class Database:
     async def set_video(self, user_id, video):
         await self.col.update_one({'_id': int(user_id)}, {'$set': {'video': video}})
 
+    async def set_dump_channel(self, user_id, channel_id):
+        await self.col.update_one(
+            {'_id': int(user_id)},
+            {'$set': {'dump_channel': int(channel_id)}},
+            upsert=True
+        )
+
+    async def get_dump_channel(self, user_id):
+        user = await self.col.find_one({'_id': int(user_id)})
+        return user.get('dump_channel', None)
+
+    async def remove_dump_channel(self, user_id):
+        await self.col.update_one(
+            {'_id': int(user_id)},
+            {'$unset': {'dump_channel': ""}}
+        )
+
 
 db = Database(Config.DB_URL, Config.DB_NAME)

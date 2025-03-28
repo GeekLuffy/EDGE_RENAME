@@ -169,11 +169,7 @@ async def doc(bot, update):
             subprocess.run(metadata_command, check=True)
             shutil.move(temp_output_file, file_path)
 
-            success_log = f"""
-✅ Mᴇᴛᴀᴅᴀᴛᴀ Aᴅᴅᴇᴅ Sᴜᴄᴄᴇssғᴜʟʟʏ!
-├ Fɪʟᴇ: {os.path.basename(file_path)}
-├ Sɪᴢᴇ: {humanbytes(os.path.getsize(file_path))}
-└ Sᴛᴀᴛᴜs: Completed"""
+            success_log = f""""""
             await ms.edit(success_log)
 
         except subprocess.CalledProcessError as e:
@@ -229,22 +225,19 @@ async def doc(bot, update):
 
     await ms.edit("Tʀyɪɴɢ Tᴏ Uᴩʟᴏᴀᴅɪɴɢ....")
     type = update.data.split("_")[1]
+
     try:
+        uploaded_message = None
         if type == "document":
-            await bot.send_document(
+            uploaded_message = await bot.send_document(
                 update.message.chat.id,
                 document=file_path,
                 thumb=ph_path,
                 caption=caption,
                 progress=progress_for_pyrogram,
                 progress_args=("Uᴩʟᴏᴀᴅ Sᴛᴀʀᴛᴇᴅ....", ms, time.time()))
-            await bot.send_document(
-                Config.DUMP_CHANNEL,
-                document=file_path,
-                thumb=ph_path,
-                caption=logcaption)
         elif type == "video":
-            await bot.send_video(
+            uploaded_message = await bot.send_video(
                 update.message.chat.id,
                 video=file_path,
                 caption=caption,
@@ -252,13 +245,8 @@ async def doc(bot, update):
                 duration=duration,
                 progress=progress_for_pyrogram,
                 progress_args=("Uᴩʟᴏᴀᴅ Sᴛᴀʀᴛᴇᴅ....", ms, time.time()))
-            await bot.send_video(
-                Config.DUMP_CHANNEL,
-                video=file_path,
-                thumb=ph_path,
-                caption=logcaption)
         elif type == "audio":
-            await bot.send_audio(
+            uploaded_message = await bot.send_audio(
                 update.message.chat.id,
                 audio=file_path,
                 caption=caption,
@@ -266,11 +254,43 @@ async def doc(bot, update):
                 duration=duration,
                 progress=progress_for_pyrogram,
                 progress_args=("Uᴩʟᴏᴀᴅ Sᴛᴀʀᴛᴇᴅ....", ms, time.time()))
-            await bot.send_audio(
-                Config.DUMP_CHANNEL,
-                audio=file_path,
-                thumb=ph_path,
-                caption=logcaption)
+
+        if uploaded_message:
+            try:
+                user_dump_channel = await db.get_dump_channel(update.chat.id)
+                if user_dump_channel:
+                    try:
+                        # Get user's dump settings
+                        # dump_with_caption = await db.get_dump_caption(user_id)
+                        # dump_with_sequence = await db.get_dump_sequence(user_id)
+                        #
+                        # # Prepare caption based on settings
+                        # forward_caption = caption if dump_with_caption else ""
+
+                        # If sequence is disabled, remove any episode numbers
+                        # if not dump_with_sequence:
+                        #     forward_caption = re.sub(r'Episode\s*\d+', '', forward_caption, flags=re.IGNORECASE)
+
+                        await bot.copy_message(
+                            chat_id=user_dump_channel,
+                            from_chat_id=uploaded_message.chat.id,
+                            message_id=uploaded_message.id,
+                            caption=caption
+                        )
+                    except Exception as e:
+                        print(f"Error copying to user dump channel: {e}")
+
+                # Then forward to bot's default dump channel
+                if Config.DUMP_CHANNEL:
+                    await bot.copy_message(
+                        chat_id=Config.DUMP_CHANNEL,
+                        from_chat_id=uploaded_message.chat.id,
+                        message_id=uploaded_message.id,
+                        caption=logcaption  # Keep the log caption for bot's dump channel
+                    )
+            except Exception as e:
+                print(f"Error copying message: {e}")
+
     except Exception as e:
         os.remove(file_path)
         if ph_path:
